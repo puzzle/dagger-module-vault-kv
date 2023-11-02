@@ -4,20 +4,28 @@ import (
 	"context"
 )
 
-type VaultKv struct{}
-
-type VaultContainer struct {
-	*Container
+type VaultKv struct {
+	Address string
+	Token   string
+	Mount   string
+	Path    string
+	Field   string
 }
 
-func (m *VaultKv) New(address string) *VaultContainer {
-	return &VaultContainer{dag.Container().From("vault:latest").WithEnvVariable("VAULT_ADDR", address)}
+func (c *VaultKv) NewForAddress(address string) (*VaultKv, error) {
+	c.Address = address
+	return c, nil
 }
 
-func (c *VaultContainer) Login(ctx context.Context, token string) *VaultContainer {
-	return &VaultContainer{c.WithExec([]string{"vault", "login", "-non-interactive", token})}
+func (c *VaultKv) Login(token string) (*VaultKv, error) {
+	c.Token = token
+	return c, nil
 }
 
-func (c *VaultContainer) GetKV(ctx context.Context, mount string, path string, field string) (string, error) {
-	return c.WithExec([]string{"vault", "kv", "-mount", mount, "-field", field, path}).Stdout(ctx)
+func (c *VaultKv) GetKV(ctx context.Context, mount string, path string, field string) (string, error) {
+	return dag.Container().From("vault:1.13.3").
+		WithEnvVariable("VAULT_ADDR", c.Address).
+		WithEnvVariable("SKIP_SETCAP", "1").
+		WithExec([]string{"vault", "login", "-non-interactive", c.Token}).
+		WithExec([]string{"vault", "kv", "get", "-mount", mount, "-field", field, path}).Stdout(ctx)
 }
