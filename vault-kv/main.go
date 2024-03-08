@@ -1,4 +1,6 @@
 // Vault kv (Key-Value) secrets engine module 
+//
+// Uses the Vault commands (CLI) to communicate with the Vault instance.
 
 package main
 
