@@ -1,6 +1,8 @@
 // Vault kv (Key-Value) secrets engine module 
 //
 // Uses the Vault commands (CLI) to communicate with the Vault instance.
+//
+// Check the original documentation: https://developer.hashicorp.com/vault/docs/commands/
 
 package main
 
@@ -8,6 +10,7 @@ import (
 	"context"
 )
 
+// Contains the Vault K/V command options.
 type VaultKv struct {
 	// Vault address
 	Address string
@@ -53,5 +56,6 @@ func (c *VaultKv) GetKV(
 		WithEnvVariable("VAULT_ADDR", c.Address).
 		WithEnvVariable("SKIP_SETCAP", "1").
 		WithExec([]string{"vault", "login", "-non-interactive", c.Token}).
-		WithExec([]string{"vault", "kv", "get", "-mount", mount, "-field", field, path}).Stdout(ctx)
+		WithExec([]string{"vault", "kv", "get", "-mount", mount, "-field", field, path}).
+		Stdout(ctx)
 }
