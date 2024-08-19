@@ -4,7 +4,7 @@
   "dependencies": [
     {
       "name": "vault-kv",
-      "source": ".."
+      "source": "../vault-kv"
     }
   ],
   "source": ".",

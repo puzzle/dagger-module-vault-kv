@@ -43,7 +43,7 @@ This module contains a testing module that aims to test Dagger vault-kv module.
 
 ```bash
 # enter into the test module's directory
-cd vault-kv/tests
+cd tests/
 # initialize the module
 dagger develop --sdk go
 # execute the tests
