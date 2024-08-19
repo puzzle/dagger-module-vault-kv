@@ -1,0 +1,12 @@
+{
+  "name": "tests",
+  "sdk": "go",
+  "dependencies": [
+    {
+      "name": "vault-kv",
+      "source": "../vault-kv"
+    }
+  ],
+  "source": ".",
+  "engineVersion": "v0.12.3"
+}
