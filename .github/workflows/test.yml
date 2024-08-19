@@ -1,0 +1,21 @@
+name: Dagger test
+
+on:
+  push:
+
+env:
+  # The Dagger CLI uses the DAGGER_CLOUD_TOKEN environment variable to authenticate with Dagger Cloud
+  DAGGER_CLOUD_TOKEN: ${{ secrets.DAGGER_CLOUD_TOKEN }}
+
+jobs:
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Dagger CLI
+        run: cd /usr/local && { curl -L https://dl.dagger.io/dagger/install.sh | sh; cd -; }
+      - name: Display module functions
+        run: dagger -m vault-kv/ functions
+      - name: Run module tests
+        run: dagger -m tests/ call test
