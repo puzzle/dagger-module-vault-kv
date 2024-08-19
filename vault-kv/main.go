@@ -52,10 +52,30 @@ func (c *VaultKv) GetKV(
 	// Print only the field with the given name
 	field string,
 ) (string, error) {
-	return dag.Container().From("vault:1.13.3").
+	return dag.Container().From("hashicorp/vault:1.17.3").
 		WithEnvVariable("VAULT_ADDR", c.Address).
 		WithEnvVariable("SKIP_SETCAP", "1").
 		WithExec([]string{"vault", "login", "-non-interactive", c.Token}).
 		WithExec([]string{"vault", "kv", "get", "-mount", mount, "-field", field, path}).
+		Stdout(ctx)
+}
+
+// The `kv put` command creates a secret in Vault.
+func (c *VaultKv) PutKV(
+	ctx context.Context,
+    // The path where the KV backend is mounted
+    mount string,
+	// path / key referencing the K/V secret
+	path string,
+	// Field to be created
+	field string,
+	// Value to be assigned
+	value string,
+) (string, error) {
+	return dag.Container().From("hashicorp/vault:1.17.3").
+		WithEnvVariable("VAULT_ADDR", c.Address).
+		WithEnvVariable("SKIP_SETCAP", "1").
+		WithExec([]string{"vault", "login", "-non-interactive", c.Token}).
+		WithExec([]string{"vault", "kv", "put", "-mount", mount, path, field + "=" + value}).
 		Stdout(ctx)
 }
