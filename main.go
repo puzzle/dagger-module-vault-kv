@@ -9,6 +9,7 @@ import (
 )
 
 type Vault struct {
+    // Predefined token to be used.
     Token string
 }
 
@@ -18,6 +19,7 @@ func New() *Vault {
     }
 }
 
+// The `vault-server` command creates a vault server instance and returns it as a service.
 func (m *Vault) VaultServer() *dagger.Service {
 	return dag.Container().
 		From("hashicorp/vault:1.17.3").
@@ -28,6 +30,7 @@ func (m *Vault) VaultServer() *dagger.Service {
 		AsService()
 }
 
+// The `test` command creates and starts a vault server instance, creates a new secret and reads it afterwards.
 func (m *Vault) Test(ctx context.Context) (error) {
   secretPath := "/secret/test"
   secretKey := fmt.Sprintf("%x", (md5.Sum([]byte(time.Now().String()))))[0:8]
@@ -41,7 +44,7 @@ func (m *Vault) Test(ctx context.Context) (error) {
   url := fmt.Sprintf("http://%s", endpoint)
   dag.VaultKv().NewForAddress(url).Login(m.Token).PutKv(ctx, "", secretPath, secretKey, secretValue)
   actualSecretValue, err := dag.VaultKv().NewForAddress(url).Login(m.Token).GetKv(ctx, "", secretPath, secretKey)
-  service.Stop(ctx)
+  defer service.Stop(ctx)
   if err != nil {
     return err
   }
