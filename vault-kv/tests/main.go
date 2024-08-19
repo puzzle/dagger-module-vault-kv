@@ -8,19 +8,19 @@ import (
     "main/internal/dagger"
 )
 
-type Vault struct {
+type Tests struct {
     // Predefined token to be used.
     Token string
 }
 
-func New() *Vault {
-    return &Vault{
+func New() *Tests {
+    return &Tests{
         Token: "sesame",
     }
 }
 
 // The `vault-server` command creates a vault server instance and returns it as a service.
-func (m *Vault) VaultServer() *dagger.Service {
+func (m *Tests) VaultServer() *dagger.Service {
 	return dag.Container().
 		From("hashicorp/vault:1.17.3").
 		WithEnvVariable("VAULT_DEV_ROOT_TOKEN_ID", m.Token).
@@ -31,7 +31,7 @@ func (m *Vault) VaultServer() *dagger.Service {
 }
 
 // The `test` command creates and starts a vault server instance, creates a new secret and reads it afterwards.
-func (m *Vault) Test(ctx context.Context) (error) {
+func (m *Tests) Test(ctx context.Context) (error) {
   secretPath := "/secret/test"
   secretKey := fmt.Sprintf("%x", (md5.Sum([]byte(time.Now().String()))))[0:8]
   secretValue := "expected"

@@ -1,10 +1,10 @@
 {
-  "name": "vault",
+  "name": "tests",
   "sdk": "go",
   "dependencies": [
     {
       "name": "vault-kv",
-      "source": "vault-kv"
+      "source": ".."
     }
   ],
   "source": ".",
