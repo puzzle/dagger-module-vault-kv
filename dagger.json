@@ -1,7 +1,12 @@
 {
-  "name": "modest",
+  "name": "vault",
   "sdk": "go",
   "dependencies": [
-    "vault-kv"
-  ]
+    {
+      "name": "vault-kv",
+      "source": "vault-kv"
+    }
+  ],
+  "source": ".",
+  "engineVersion": "v0.12.3"
 }
