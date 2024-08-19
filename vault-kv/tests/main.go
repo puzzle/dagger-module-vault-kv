@@ -1,3 +1,6 @@
+// Package main provides tests for the Vault kv (Key-Value) secrets engine module
+//
+// The functions can be called from the dagger CLI or from one of the SDKs.
 package main
 
 import (

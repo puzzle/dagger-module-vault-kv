@@ -1,9 +1,9 @@
-// Vault kv (Key-Value) secrets engine module 
+// Package main provides the Vault kv (Key-Value) secrets engine module
 //
-// Uses the Vault commands (CLI) to communicate with the Vault instance.
+// This module uses the Vault commands (CLI) to communicate with the Vault instance.
+// The functions can be called from the dagger CLI or from one of the SDKs.
 //
 // Check the original documentation: https://developer.hashicorp.com/vault/docs/commands/
-
 package main
 
 import (
