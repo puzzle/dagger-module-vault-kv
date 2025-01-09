@@ -3,7 +3,7 @@ module vault-kv
 go 1.21.2
 
 require (
-	github.com/99designs/gqlgen v0.17.49
+	github.com/99designs/gqlgen v0.17.63
 	github.com/Khan/genqlient v0.7.0
 	golang.org/x/exp v0.0.0-20231110203233-9a3e6036ecaa
 	golang.org/x/sync v0.8.0
