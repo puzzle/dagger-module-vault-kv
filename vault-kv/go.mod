@@ -2,7 +2,7 @@ module vault-kv
 
 go 1.22.0
 
-toolchain go1.22.2
+toolchain go1.23.5
 
 require (
 	github.com/99designs/gqlgen v0.17.49
