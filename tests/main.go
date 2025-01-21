@@ -51,7 +51,7 @@ func (m *Tests) vaultServer() *dagger.Service {
 		From("hashicorp/vault:1.17.3").
 		WithEnvVariable("VAULT_DEV_ROOT_TOKEN_ID", m.Token).
         WithEnvVariable("VAULT_DEV_LISTEN_ADDRESS", "0.0.0.0:8200").
-		WithExec([]string{"vault", "server", "-dev"}).
+		WithDefaultArgs([]string{"vault", "server", "-dev"}).
 		WithExposedPort(8200).
 		AsService()
 }
