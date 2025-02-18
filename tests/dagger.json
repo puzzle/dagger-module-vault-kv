@@ -1,7 +1,9 @@
 {
   "name": "tests",
-  "engineVersion": "v0.15.2",
-  "sdk": "go",
+  "engineVersion": "v0.15.4",
+  "sdk": {
+    "source": "go"
+  },
   "dependencies": [
     {
       "name": "vault-kv",
