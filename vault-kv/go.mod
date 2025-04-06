@@ -10,7 +10,7 @@ require (
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetricgrpc v1.34.0
 	go.opentelemetry.io/otel/exporters/otlp/otlpmetric/otlpmetrichttp v1.34.0
 	go.opentelemetry.io/otel/sdk/metric v1.34.0
-	golang.org/x/sync v0.10.0
+	golang.org/x/sync v0.13.0
 )
 
 require go.opentelemetry.io/auto/sdk v1.1.0 // indirect
