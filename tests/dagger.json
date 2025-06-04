@@ -1,6 +1,6 @@
 {
   "name": "tests",
-  "engineVersion": "v0.15.4",
+  "engineVersion": "v0.18.9",
   "sdk": {
     "source": "go"
   },
@@ -9,6 +9,5 @@
       "name": "vault-kv",
       "source": "../vault-kv"
     }
-  ],
-  "source": "."
+  ]
 }

@@ -16,13 +16,13 @@ type VaultKv struct {
 	// Vault address
 	Address string
 	// Vault access token used for login
-	Token   string
+	Token string
 	// `kv get` command option: mount
-	Mount   string
+	Mount string
 	// path / key referencing the K/V secret
-	Path    string
+	Path string
 	// `kv get` output option: field
-	Field   string
+	Field string
 }
 
 // Configure Vault address to connect to
@@ -61,8 +61,8 @@ func (m *VaultKv) GetKV(
 // The `kv put` command creates a secret in Vault.
 func (m *VaultKv) PutKV(
 	ctx context.Context,
-    // The path where the KV backend is mounted
-    mount string,
+	// The path where the KV backend is mounted
+	mount string,
 	// path / key referencing the K/V secret
 	path string,
 	// Field to be created
@@ -76,8 +76,8 @@ func (m *VaultKv) PutKV(
 }
 
 func (m *VaultKv) createContainer() *dagger.Container {
-    return dag.Container().From("hashicorp/vault:1.17.3").
-        WithEnvVariable("VAULT_ADDR", m.Address).
-        WithEnvVariable("SKIP_SETCAP", "1").
-        WithExec([]string{"vault", "login", "-non-interactive", m.Token})
+	return dag.Container().From("hashicorp/vault:1.19.5").
+		WithEnvVariable("VAULT_ADDR", m.Address).
+		WithEnvVariable("SKIP_SETCAP", "1").
+		WithExec([]string{"vault", "login", "-non-interactive", m.Token})
 }
